@@ -21,6 +21,7 @@ def train_validate_test_split(df, target, seed=123):
     train, validate = train_test_split(train_validate, test_size=0.3, 
                                        random_state=seed,
                                        stratify=train_validate[target])
+    target= 'churn'
     return train, validate, test
 
 ###################### Prepare telco Data With Split ######################
@@ -31,22 +32,23 @@ def split_data(df):
     return train, validate, test DataFrames.
     '''
     
-    # splits df into train_validate and test using train_test_split() stratifying on churn to get an even mix of churn and no churn
+    # splits df into train_validate and test using train_test_split() stratifying on churn to get an even mix of churn and no         churn
     train_validate, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.churn)
     
-    # splits train_validate into train and validate using train_test_split() stratifying on churn to get an even mix of churn and no churn
+    # splits train_validate into train and validate using train_test_split() stratifying on churn to get an even mix of churn and     no churn
     train, validate = train_test_split(train_validate, 
                                        test_size=.3, 
                                        random_state=123, 
                                        stratify=train_validate.churn)
     return train, validate, test
 
-
+######################### Prepare telco Data with my steps ######################
 
 def prep_telco(df):
     '''
     This function take in the telco_churn data acquired by get_connection,
-    Returns prepped df with unnecessary columns dropped, churn column turned to 0 and 2, customer_id
+    Returns prepped df with unnecessary columns dropped, 
+    churn column turned to 0 and 2, customer_id
     deck dropped, and the mean of age imputed for Null values.**)
     '''
     
@@ -64,10 +66,10 @@ def prep_telco(df):
     
     #drop all additional services since I am not interested in exploring
     df.drop(columns=['online_security','online_backup','device_protection',
-                     'tech_support','streaming_tv','streaming_movies'],inplace=True)
+              'tech_support','streaming_tv','streaming_movies'],inplace=True)
 
-    # check if there are any missing values 
-    df.total_charges.str.contains('')
+    #find any missing values
+    df.total_charges.value_counts()
     
     # count how many are missing
     df.total_charges.value_counts()
@@ -75,9 +77,16 @@ def prep_telco(df):
   # this will get rid of the rows with no value in the total_charges column
     df.drop(df[df['total_charges'].str.contains(" ")].index, inplace = True)
 
-    # split data into train, validate, test dfs
-    train, validate, test = split_data(df)
+    # Drop duplicatesreassign and check the shape of my data.
+    df = df.drop_duplicates()
+    
+    #pd.to_numeric(df[column])
+    df['total_charges'] = pd.to_numeric(df['total_charges'])   
+    
+    
+    
+    
 
-    return train, validate, test
+    
 
 
