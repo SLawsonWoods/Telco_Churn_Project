@@ -72,7 +72,7 @@ def prep_telco(df):
     # count how many are missing
     df.total_charges.value_counts()
     
-  # this will get rid of the rows with no value in the total_charges column
+    # this will get rid of the rows with no value in the total_charges column
     df.drop(df[df['total_charges'].str.contains(" ")].index, inplace = True)
 
     # Drop duplicatesreassign and check the shape of my data.
@@ -82,7 +82,19 @@ def prep_telco(df):
     df['total_charges'] = pd.to_numeric(df['total_charges'])   
     
     
+    df.replace(to_replace = {'churn': {'no': 0, 'yes': 1}}, inplace=True)
     
+    
+    #def prep_telco_modeling(df):
+    '''
+    This function take in the telco_churn data acquired by get_connection,
+    Returns prepped df with target column turned to binary, columns dropped that were not needed, missing     values in total_charges handled by deleting those 11 rows, dropping duplicates, and changing             total_charges to numeric)
+    '''
+    
+    # drop columns with id since I used those just to JOIN the data
+    #df.drop(columns=['payment_type_id','internet_service_type_id','contract_type_id'],inplace=True)
+
+
     
 
     
