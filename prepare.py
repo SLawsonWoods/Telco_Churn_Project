@@ -47,9 +47,7 @@ def split_data(df):
 def prep_telco(df):
     '''
     This function take in the telco_churn data acquired by get_connection,
-    Returns prepped df with unnecessary columns dropped, 
-    churn column turned to 0 and 2, customer_id
-    deck dropped, and the mean of age imputed for Null values.**)
+    Returns prepped df with target column turned to binary, columns dropped that were not needed, missing     values in total_charges handled by deleting those 11 rows, dropping duplicates, and changing             total_charges to numeric)
     '''
     
     # drop columns with id since I used those just to JOIN the data

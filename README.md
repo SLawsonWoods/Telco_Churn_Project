@@ -13,10 +13,10 @@ Answer panel questions about your code, process, findings and key takeaways, and
 
 **Business Goals**
 Find drivers for churn at Telco. Why are customers churning?
-Construct a ML classificiation modelthat acc
-Document your process well enough to be presented or read like a report.
+Construct a ML classificiation model that accurately predicts churn for each customer.
+Document the process well enough to be presented or read like a report.
 
-Audience
+**Audience**
 The Codeup Data Science Team.
 
 Project Deliverables
