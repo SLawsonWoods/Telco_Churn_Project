@@ -21,26 +21,9 @@ def train_validate_test_split(df, target, seed=123):
     train, validate = train_test_split(train_validate, test_size=0.3, 
                                        random_state=seed,
                                        stratify=train_validate[target])
-    target= 'churn'
+    
     return train, validate, test
 
-###################### Prepare telco Data With Split ######################
-
-def split_data(df):
-    '''
-    take in a DataFrame and return train, validate, and test DataFrames; stratify on churn.
-    return train, validate, test DataFrames.
-    '''
-    
-    # splits df into train_validate and test using train_test_split() stratifying on churn to get an even mix of churn and no         churn
-    train_validate, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.churn)
-    
-    # splits train_validate into train and validate using train_test_split() stratifying on churn to get an even mix of churn and     no churn
-    train, validate = train_test_split(train_validate, 
-                                       test_size=.3, 
-                                       random_state=123, 
-                                       stratify=train_validate.churn)
-    return train, validate, test
 
 ######################### Prepare telco Data with my steps ######################
 
@@ -85,16 +68,50 @@ def prep_telco(df):
     df.replace(to_replace = {'churn': {'no': 0, 'yes': 1}}, inplace=True)
     
     
-    #def prep_telco_modeling(df):
+def prep_telco_modeling(train_encoded, validate_encoded, test_encoded):
+        
     '''
     This function take in the telco_churn data acquired by get_connection,
     Returns prepped df with target column turned to binary, columns dropped that were not needed, missing     values in total_charges handled by deleting those 11 rows, dropping duplicates, and changing             total_charges to numeric)
     '''
     
-    # drop columns with id since I used those just to JOIN the data
-    #df.drop(columns=['payment_type_id','internet_service_type_id','contract_type_id'],inplace=True)
-
-
+    encoded_columns=['gender', 'contract_type', 'partner', 'dependents', 'phone_service',\
+                    'multiple_lines','internet_service_type','payment_type']
+    
+    #make dummy variables
+    dummy_df = pd.get_dummies(train_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
+    
+    # put it all back together
+    train_encoded = pd.concat([train_encoded, dummy_df], axis=1)
+    
+    # drop initial column since we have that information now
+    train_encoded = train_encoded.drop(columns=encoded_columns)
+    
+    #make dummy variables
+    dummy_df = pd.get_dummies(validate_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
+    
+    # put it all back together
+    validate_encoded = pd.concat([validate_encoded, dummy_df], axis=1)
+    
+    # drop initial column since we have that information now
+    validate_encoded = validate_encoded.drop(columns=encoded_columns)
+    
+    #make dummy variables
+    dummy_df = pd.get_dummies(test_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
+    
+    # put it all back together
+    test_encoded = pd.concat([test_encoded, dummy_df], axis=1)
+    
+    # drop initial column since we have that information now
+    test_encoded = test_encoded.drop(columns=encoded_columns)
+    
+    train_encoded.drop(columns='paperless_billing',inplace=True)
+    
+    validate_encoded.drop(columns='paperless_billing',inplace=True)
+    
+    test_encoded.drop(columns='paperless_billing',inplace=True)
+    
+    return train_encoded, validate_encoded, test_encoded
     
 
     

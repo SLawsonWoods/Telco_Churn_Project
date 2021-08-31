@@ -14,3 +14,10 @@ def get_connection(db, user=user, host=host, password=password):
     '''
     return f'mysql+pymysql://{user}:{password}@{host}/{db}'
     
+def get_db():
+    df = pd.read_sql('''SELECT *
+    FROM customers
+    JOIN contract_types USING(contract_type_id)
+    JOIN internet_service_types USING(internet_service_type_id)
+    JOIN payment_types USING(payment_type_id);''', get_connection("telco_churn"))
+    return df
