@@ -1,21 +1,41 @@
 # telco_churn_project
 A project determining drivers of churn amoung customers.
+_________________________________________________________________________________________________________
+**Table of Contents**
+
+1.)  Project Summary
+2.)  Project Objective
+3.)  Business Goals
+4.)  Audience
+5.)  Project Deliverables
 
 
-Project Summary
+6.)  Project Context
+7.)  Data Dictionary
+8.)  Initial Hypothesis
+9.)  Executive Summary - Conclusions & Next Steps
+
+
+10.)  Pipeline Stages Breakdown
+10a.) Project Plan
+10b.) Data Acquisition
+10c.) Data Preparation
+10d.) Data Exploration
+10e.) Modeling and Evaluation
+
+11.)  Reproduce
+
+________________________________________________________________________________________________________
+**Project Summary**
+Zillow's Zestimate is an estimate of value of a home using a formula they created. Zestimates have an accuracy of about 80%.  What drives errors between the zestimates and the actual sale price of the home?In this project working with a Zillow dataset I explore features of a home that are drivers for logerror, and create models to predict logerror. I want to establish if using clustering to explore my data will help me find these drivers and increase my model performance. 
 
 _________________________________________________________________________________________________________
 **Project Objectives**
-Document code, process (data acquistion, preparation, exploratory data analysis and statistical testing, modeling, and model evaluation), findings, and key takeaways in a Jupyter Notebook report.
-Create modules (acquire.py, prepare.py) that make your process repeateable.
-Construct a model to predict customer churn using classification techniques.
-Deliver a 5 minute presentation consisting of a high-level notebook walkthrough using your Jupyter Notebook from above; your presentation should be appropriate for your target audience.
-Answer panel questions about your code, process, findings and key takeaways, and model.
+Document code, process (data acquistion, preparation, exploratory data analysis including clusterng and statistical testing, modeling, and model evaluation), findings, and key takeaways in a Jupyter Notebook report. Create modules (acquire.py, prepare.py) that make your process repeateable. Construct 4 models to predict logerror using clustering techniqures if they prove to indicate useful features. Deliver a 4 minute presentation consisting of a high-level notebook walkthrough using your Jupyter Notebook from above; your presentation should be appropriate for your audience the Zillow data science team.  Set aside one minute at the end of the presentation to answer questions about your code, process, findings and key takeaways, and models.
 
 _________________________________________________________________________________________________________
 **Business Goals**
-Find drivers for churn at Telco. Why are customers churning?
-Construct a ML classificiation model that accurately predicts churn for each customer.
+Find drivers for logerror which is the difference between the actual sale price of a home and the zestimate. Answer the question, drives logerror? Construct 4 ML model that accurately predicts churn for each customer.
 Document the process well enough to be presented or read like a report.
 
 _________________________________________________________________________________________________________
